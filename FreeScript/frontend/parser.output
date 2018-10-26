@@ -1,0 +1,780 @@
+Terminals unused in grammar
+
+   UNKNOWN
+   COMMA
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: Expression TERMINATOR
+    2        | TERMINATOR
+
+    3 Expression: BRACKOPEN Expression BRACKCLOSE
+    4           | IF Expression THEN Expression
+    5           | IF Expression THEN Expression ELSE Expression
+    6           | WHILE Expression LOOP Expression
+    7           | LOOP Expression WHILE Expression
+    8           | DO Expression
+    9           | ASYNC Expression
+   10           | Expression ASSIGN Expression
+   11           | Expression PARENOPEN Sequence PARENCLOSE
+   12           | Expression DOT IDENTIFIER
+   13           | BRACEOPEN Sequence BRACECLOSE
+   14           | Value
+
+   15 Sequence: Expression Sequence
+   16         | %empty
+
+   17 Value: IDENTIFIER
+   18      | NUMBER
+   19      | NIL
+   20      | UNDEFINED
+   21      | CLOSURE PARENOPEN Params PARENCLOSE Expression
+
+   22 Params: IDENTIFIER Params
+   23       | %empty
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TERMINATOR (258) 1 2
+UNKNOWN (259)
+BRACECLOSE (260) 13
+BRACKCLOSE (261) 3
+BRACEOPEN (262) 13
+BRACKOPEN (263) 3
+COMMA (264)
+NIL (265) 19
+UNDEFINED (266) 20
+CLOSURE (267) 21
+IF (268) 4 5
+WHILE (269) 6 7
+LOOP (270) 6 7
+DO (271) 8
+ASYNC (272) 9
+PARENCLOSE (273) 11 21
+THEN (274) 4 5
+ELSE (275) 5
+ASSIGN (276) 10
+PARENOPEN (277) 11 21
+DOT (278) 12
+NUMBER (279) 18
+IDENTIFIER (280) 12 17 22
+
+
+Nonterminals, with rules where they appear
+
+$accept (26)
+    on left: 0
+Program (27)
+    on left: 1 2, on right: 0
+Expression (28)
+    on left: 3 4 5 6 7 8 9 10 11 12 13 14, on right: 1 3 4 5 6 7 8
+    9 10 11 12 15 21
+Sequence (29)
+    on left: 15 16, on right: 11 13 15
+Value (30)
+    on left: 17 18 19 20 21, on right: 14
+Params (31)
+    on left: 22 23, on right: 21 22
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    TERMINATOR  shift, and go to state 1
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Program     go to state 14
+    Expression  go to state 15
+    Value       go to state 16
+
+
+State 1
+
+    2 Program: TERMINATOR .
+
+    $default  reduce using rule 2 (Program)
+
+
+State 2
+
+   13 Expression: BRACEOPEN . Sequence BRACECLOSE
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 16 (Sequence)
+
+    Expression  go to state 17
+    Sequence    go to state 18
+    Value       go to state 16
+
+
+State 3
+
+    3 Expression: BRACKOPEN . Expression BRACKCLOSE
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 19
+    Value       go to state 16
+
+
+State 4
+
+   19 Value: NIL .
+
+    $default  reduce using rule 19 (Value)
+
+
+State 5
+
+   20 Value: UNDEFINED .
+
+    $default  reduce using rule 20 (Value)
+
+
+State 6
+
+   21 Value: CLOSURE . PARENOPEN Params PARENCLOSE Expression
+
+    PARENOPEN  shift, and go to state 20
+
+
+State 7
+
+    4 Expression: IF . Expression THEN Expression
+    5           | IF . Expression THEN Expression ELSE Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 21
+    Value       go to state 16
+
+
+State 8
+
+    6 Expression: WHILE . Expression LOOP Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 22
+    Value       go to state 16
+
+
+State 9
+
+    7 Expression: LOOP . Expression WHILE Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 23
+    Value       go to state 16
+
+
+State 10
+
+    8 Expression: DO . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 24
+    Value       go to state 16
+
+
+State 11
+
+    9 Expression: ASYNC . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 25
+    Value       go to state 16
+
+
+State 12
+
+   18 Value: NUMBER .
+
+    $default  reduce using rule 18 (Value)
+
+
+State 13
+
+   17 Value: IDENTIFIER .
+
+    $default  reduce using rule 17 (Value)
+
+
+State 14
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 26
+
+
+State 15
+
+    1 Program: Expression . TERMINATOR
+   10 Expression: Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    TERMINATOR  shift, and go to state 27
+    ASSIGN      shift, and go to state 28
+    PARENOPEN   shift, and go to state 29
+    DOT         shift, and go to state 30
+
+
+State 16
+
+   14 Expression: Value .
+
+    $default  reduce using rule 14 (Expression)
+
+
+State 17
+
+   10 Expression: Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+   15 Sequence: Expression . Sequence
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    ASSIGN      shift, and go to state 28
+    PARENOPEN   shift, and go to state 29
+    DOT         shift, and go to state 30
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 16 (Sequence)
+
+    Expression  go to state 17
+    Sequence    go to state 31
+    Value       go to state 16
+
+
+State 18
+
+   13 Expression: BRACEOPEN Sequence . BRACECLOSE
+
+    BRACECLOSE  shift, and go to state 32
+
+
+State 19
+
+    3 Expression: BRACKOPEN Expression . BRACKCLOSE
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    BRACKCLOSE  shift, and go to state 33
+    ASSIGN      shift, and go to state 28
+    PARENOPEN   shift, and go to state 29
+    DOT         shift, and go to state 30
+
+
+State 20
+
+   21 Value: CLOSURE PARENOPEN . Params PARENCLOSE Expression
+
+    IDENTIFIER  shift, and go to state 34
+
+    $default  reduce using rule 23 (Params)
+
+    Params  go to state 35
+
+
+State 21
+
+    4 Expression: IF Expression . THEN Expression
+    5           | IF Expression . THEN Expression ELSE Expression
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    THEN       shift, and go to state 36
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+
+State 22
+
+    6 Expression: WHILE Expression . LOOP Expression
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    LOOP       shift, and go to state 37
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+
+State 23
+
+    7 Expression: LOOP Expression . WHILE Expression
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    WHILE      shift, and go to state 38
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+
+State 24
+
+    8 Expression: DO Expression .
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 8 (Expression)
+
+
+State 25
+
+    9 Expression: ASYNC Expression .
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 9 (Expression)
+
+
+State 26
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 27
+
+    1 Program: Expression TERMINATOR .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 28
+
+   10 Expression: Expression ASSIGN . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 39
+    Value       go to state 16
+
+
+State 29
+
+   11 Expression: Expression PARENOPEN . Sequence PARENCLOSE
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 16 (Sequence)
+
+    Expression  go to state 17
+    Sequence    go to state 40
+    Value       go to state 16
+
+
+State 30
+
+   12 Expression: Expression DOT . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 41
+
+
+State 31
+
+   15 Sequence: Expression Sequence .
+
+    $default  reduce using rule 15 (Sequence)
+
+
+State 32
+
+   13 Expression: BRACEOPEN Sequence BRACECLOSE .
+
+    $default  reduce using rule 13 (Expression)
+
+
+State 33
+
+    3 Expression: BRACKOPEN Expression BRACKCLOSE .
+
+    $default  reduce using rule 3 (Expression)
+
+
+State 34
+
+   22 Params: IDENTIFIER . Params
+
+    IDENTIFIER  shift, and go to state 34
+
+    $default  reduce using rule 23 (Params)
+
+    Params  go to state 42
+
+
+State 35
+
+   21 Value: CLOSURE PARENOPEN Params . PARENCLOSE Expression
+
+    PARENCLOSE  shift, and go to state 43
+
+
+State 36
+
+    4 Expression: IF Expression THEN . Expression
+    5           | IF Expression THEN . Expression ELSE Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 44
+    Value       go to state 16
+
+
+State 37
+
+    6 Expression: WHILE Expression LOOP . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 45
+    Value       go to state 16
+
+
+State 38
+
+    7 Expression: LOOP Expression WHILE . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 46
+    Value       go to state 16
+
+
+State 39
+
+   10 Expression: Expression . ASSIGN Expression
+   10           | Expression ASSIGN Expression .
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 10 (Expression)
+
+
+State 40
+
+   11 Expression: Expression PARENOPEN Sequence . PARENCLOSE
+
+    PARENCLOSE  shift, and go to state 47
+
+
+State 41
+
+   12 Expression: Expression DOT IDENTIFIER .
+
+    $default  reduce using rule 12 (Expression)
+
+
+State 42
+
+   22 Params: IDENTIFIER Params .
+
+    $default  reduce using rule 22 (Params)
+
+
+State 43
+
+   21 Value: CLOSURE PARENOPEN Params PARENCLOSE . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 48
+    Value       go to state 16
+
+
+State 44
+
+    4 Expression: IF Expression THEN Expression .
+    5           | IF Expression THEN Expression . ELSE Expression
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ELSE       shift, and go to state 49
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 4 (Expression)
+
+
+State 45
+
+    6 Expression: WHILE Expression LOOP Expression .
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 6 (Expression)
+
+
+State 46
+
+    7 Expression: LOOP Expression WHILE Expression .
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 7 (Expression)
+
+
+State 47
+
+   11 Expression: Expression PARENOPEN Sequence PARENCLOSE .
+
+    $default  reduce using rule 11 (Expression)
+
+
+State 48
+
+   10 Expression: Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+   21 Value: CLOSURE PARENOPEN Params PARENCLOSE Expression .
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 21 (Value)
+
+
+State 49
+
+    5 Expression: IF Expression THEN Expression ELSE . Expression
+
+    BRACEOPEN   shift, and go to state 2
+    BRACKOPEN   shift, and go to state 3
+    NIL         shift, and go to state 4
+    UNDEFINED   shift, and go to state 5
+    CLOSURE     shift, and go to state 6
+    IF          shift, and go to state 7
+    WHILE       shift, and go to state 8
+    LOOP        shift, and go to state 9
+    DO          shift, and go to state 10
+    ASYNC       shift, and go to state 11
+    NUMBER      shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+
+    Expression  go to state 50
+    Value       go to state 16
+
+
+State 50
+
+    5 Expression: IF Expression THEN Expression ELSE Expression .
+   10           | Expression . ASSIGN Expression
+   11           | Expression . PARENOPEN Sequence PARENCLOSE
+   12           | Expression . DOT IDENTIFIER
+
+    ASSIGN     shift, and go to state 28
+    PARENOPEN  shift, and go to state 29
+    DOT        shift, and go to state 30
+
+    $default  reduce using rule 5 (Expression)

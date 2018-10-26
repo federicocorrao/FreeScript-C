@@ -1,0 +1,5 @@
+
+{
+    do f = closure(x) x
+    f
+}
